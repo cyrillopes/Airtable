@@ -66,68 +66,45 @@ app.get('/', (req, res, next) => {
   res.send('Data Successfully Uploaded to MongoDB');
 });
 
-// app.patch('/update', (req, res) => {
-//   base('Employee').update(
-//     [
-//       {
-//         id: 'recXvFKH6bje0kYhJ',
-//         fields: {
-//           EMPLOYEE_ID: 198,
-//           FIRST_NAME: 'Donald',
-//           LAST_NAME: 'OConnell',
-//           EMAIL: 'DOCONNEL',
-//           PHONE_NUMBER: '650.507.9833',
-//           HIRE_DATE: '2007-06-20T18:30:00.000Z',
-//           JOB_ID: 'SH_CLERK',
-//           SALARY: 2600,
-//           COMMISSION_PCT: ' - ',
-//           MANAGER_ID: '124',
-//           DEPARTMENT_ID: 50,
-//         },
-//       },
-//       {
-//         id: 'recRLBqp79rXmUu5L',
-//         fields: {
-//           EMPLOYEE_ID: 199,
-//           FIRST_NAME: 'Douglas',
-//           LAST_NAME: 'Grant',
-//           EMAIL: 'DGRANT',
-//           PHONE_NUMBER: '650.507.9844',
-//           HIRE_DATE: '2008-01-12T18:30:00.000Z',
-//           JOB_ID: 'SH_CLERK',
-//           SALARY: 2600,
-//           COMMISSION_PCT: ' - ',
-//           MANAGER_ID: '124',
-//           DEPARTMENT_ID: 50,
-//         },
-//       },
-//       {
-//         id: 'recZh4JgLNl2joEhr',
-//         fields: {
-//           EMPLOYEE_ID: 200,
-//           FIRST_NAME: 'Jennifer',
-//           LAST_NAME: 'Whalen',
-//           EMAIL: 'JWHALEN',
-//           PHONE_NUMBER: '515.123.4444',
-//           HIRE_DATE: '2003-09-16T18:30:00.000Z',
-//           JOB_ID: 'AD_ASST',
-//           SALARY: 4400,
-//           COMMISSION_PCT: ' - ',
-//           MANAGER_ID: '101',
-//           DEPARTMENT_ID: 10,
-//         },
-//       },
-//     ],
-//     function (err, records) {
-//       if (err) {
-//         console.error(err);
-//         return;
-//       }
-//       records.forEach(function (record) {
-//         console.log(record.get('EMPLOYEE_ID'));
-//       });
-//     }
-//   );
-// });
+app.get('/update', (req, res) => {
+  base('Employee').update(
+    [
+      {
+        id: 'recRLBqp79rXmUu5L',
+        fields: {
+          EMPLOYEE_ID: 900,
+          FIRST_NAME: 'Trump',
+          LAST_NAME: 'Luis',
+          EMAIL: 'DOCONNEL',
+          PHONE_NUMBER: '650.507.9833',
+          HIRE_DATE: '2007-06-20T18:30:00.000Z',
+          JOB_ID: 'SH_CLERK',
+          SALARY: 2600,
+          COMMISSION_PCT: ' - ',
+          MANAGER_ID: '124',
+          DEPARTMENT_ID: 50,
+        },
+      },
+    ],
+    function (err, records) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach(async function (record) {
+        console.log(record);
+        const fields = record.fields; //Storing only data that is important
+        try {
+          await Employee.updateOne(fields);
+          console.log('Data successfully Updated');
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+  );
+  res.send('Update Successful!!');
+});
+
 //environment variable
 app.listen(port, () => console.log(`Listening on port ${port}...`));
