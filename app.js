@@ -21,12 +21,12 @@ mongoose
   })
   .then(() => console.log('DB connection successful'));
 
-const minifiedVersion = (record) => {
-  return {
-    id: record.id,
-    fields: record.fields,
-  };
-};
+// const minifiedVersion = (record) => {
+//   return {
+//     id: record.id,
+//     fields: record.fields,
+//   };
+// };
 
 app.get('/', (req, res, next) => {
   base('Employee')
